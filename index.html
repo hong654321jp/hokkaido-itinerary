@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>北海道六日深度之旅 · 2025</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    /* ── Custom Properties ── */
+    :root {
+      --navy:         #0d2847;
+      --navy-mid:     #0e4f6b;
+      --teal:         #0e7490;
+      --teal-dark:    #0c5f77;
+      --teal-light:   #cffafe;
+      --teal-bg:      #e0f9fc;
+      --sky-soft:     #e0f2fe;
+      --amber:        #d97706;
+      --amber-dark:   #b45309;
+      --amber-light:  #fef3c7;
+      --amber-bg:     #fffbeb;
+      --green:        #15803d;
+      --green-light:  #dcfce7;
+      --green-bg:     #f0fdf4;
+      --red:          #dc2626;
+      --red-light:    #fee2e2;
+      --red-bg:       #fff5f5;
+      --purple:       #7c3aed;
+      --purple-light: #ede9fe;
+      --purple-bg:    #faf5ff;
+      --gold:         #ca8a04;
+      --gold-light:   #fefce8;
+      --slate:        #334155;
+      --slate-mid:    #475569;
+      --slate-light:  #94a3b8;
+      --gray-bg:      #f8fafc;
+      --border:       #e2e8f0;
+      --white:        #ffffff;
+      --radius-sm:    6px;
+      --radius-md:    10px;
+      --radius-lg:    16px;
+      --radius-xl:    24px;
+      --shadow-sm:    0 1px 3px rgba(0,0,0,0.08);
+      --shadow-md:    0 4px 12px rgba(0,0,0,0.10);
+      --shadow-lg:    0 8px 28px rgba(0,0,0,0.14);
+      --font-serif:   'Noto Serif TC', 'PingFang TC', 'Microsoft JhengHei', serif;
+      --font-sans:    'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+    }
+
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-sans);
+      color: var(--slate);
+      background: var(--gray-bg);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    /* ── Sticky Header ── */
+    #site-header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--navy);
+      height: 52px;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .header-brand {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+    }
+    .header-brand span { color: #7dd3fc; }
+    .day-nav {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      flex: 1;
+      justify-content: flex-end;
+    }
+    .day-nav::-webkit-scrollbar { display: none; }
+    .day-nav-link {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 12px;
+      background: rgba(255,255,255,0.1);
+      color: #bfdbfe;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+    }
+    .day-nav-link:hover,
+    .day-nav-link.active {
+      background: var(--teal);
+      color: var(--white);
+    }
+    .hamburger { display: none; flex-direction: column; gap: 5px; padding: 6px; }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--white); border-radius: 2px;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .mobile-nav {
+      display: none;
+      position: absolute;
+      top: 52px; left: 0; right: 0;
+      background: var(--navy);
+      padding: 12px 20px 16px;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav .day-nav-link { justify-content: center; font-size: 0.9rem; padding: 8px; }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 90vh;
+      background:
+        linear-gradient(150deg, #0a1f3d 0%, #0d3a5c 45%, #0f5a7a 80%, #0e7490 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(14,116,144,0.25) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(13,40,71,0.4) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    #hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.025'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      color: #7dd3fc;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.4rem, 7vw, 4.2rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.15;
+      letter-spacing: 0.04em;
+      margin-bottom: 16px;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+      position: relative;
+    }
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: #bae6fd;
+      margin-bottom: 40px;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      position: relative;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      position: relative;
+      margin-bottom: 48px;
+    }
+    .stat-pill {
+      padding: 8px 20px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: var(--radius-xl);
+      color: var(--white);
+      font-size: 0.88rem;
+      font-weight: 500;
+      backdrop-filter: blur(4px);
+      letter-spacing: 0.02em;
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.5);
+      font-size: 1.4rem;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ── Route Bar ── */
+    #route {
+      background: var(--white);
+      padding: 48px 0 44px;
+      border-bottom: 1px solid var(--border);
+    }
+    .route-label {
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      color: var(--slate-light);
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+    .route-scroll-wrap {
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      padding: 0 32px 8px;
+    }
+    .route-scroll-wrap::-webkit-scrollbar { display: none; }
+    .route-track {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      min-width: 680px;
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .route-track::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 32px; right: 32px;
+      border-top: 2px dashed #cbd5e1;
+      z-index: 0;
+    }
+    .route-stop {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      z-index: 1;
+      min-width: 72px;
+    }
+    .stop-circle {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      border: 3px solid var(--white);
+      box-shadow: var(--shadow-md);
+    }
+    .stop-circle.flight  { background: var(--teal); }
+    .stop-circle.city    { background: var(--navy); }
+    .stop-circle.nature  { background: var(--green); }
+    .stop-circle.coastal { background: #0369a1; }
+    .stop-circle.luxury  { background: var(--purple); }
+    .stop-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--navy);
+      text-align: center;
+      line-height: 1.2;
+    }
+    .stop-date {
+      font-size: 0.68rem;
+      color: var(--slate-light);
+      text-align: center;
+    }
+
+    /* ── Itinerary Section ── */
+    #itinerary {
+      padding: 60px 0 80px;
+      background: var(--gray-bg);
+    }
+    .section-title {
+      text-align: center;
+      font-family: var(--font-serif);
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 48px;
+      letter-spacing: 0.04em;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ── Day Block ── */
+    .day-block {
+      margin-bottom: 20px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      scroll-margin-top: 64px;
+    }
+    .day-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      background: var(--navy);
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s;
+    }
+    .day-header:hover { background: #112f56; }
+    .day-num {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--teal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-family: var(--font-serif);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.1;
+      text-align: center;
+    }
+    .day-info { flex: 1; min-width: 0; }
+    .day-date {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+    .day-theme {
+      font-size: 0.78rem;
+      color: #93c5fd;
+      margin-top: 2px;
+    }
+    .day-stay {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.78rem;
+      color: #bae6fd;
+      white-space: nowrap;
+    }
+    .chevron {
+      color: var(--white);
+      font-size: 1.1rem;
+      transition: transform 0.3s;
+      opacity: 0.6;
+      flex-shrink: 0;
+    }
+    .chevron.open { transform: rotate(90deg); }
+
+    /* ── Day Body (Accordion) ── */
+    .day-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.45s ease, opacity 0.3s ease;
+      opacity: 0;
+      background: var(--white);
+    }
+    .day-body.open {
+      opacity: 1;
+    }
+    .entry-list {
+      padding: 20px 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+    }
+    .entry-list::before {
+      content: '';
+      position: absolute;
+      left: 40px; top: 28px; bottom: 28px;
+      width: 2px;
+      background: var(--border);
+      z-index: 0;
+    }
+
+    /* ── Entry ── */
+    .entry {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+    .time-badge {
+      min-width: 52px;
+      text-align: right;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--slate-light);
+      padding-top: 10px;
+      letter-spacing: 0.01em;
+      flex-shrink: 0;
+    }
+    .entry-icon {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+      border: 2px solid var(--white);
+      box-shadow: var(--shadow-sm);
+    }
+    .entry-content {
+      flex: 1;
+      min-width: 0;
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      border-left: 3px solid transparent;
+    }
+    .entry-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.3;
+    }
+    .entry-detail {
+      font-size: 0.8rem;
+      color: var(--slate-mid);
+      margin-top: 3px;
+      line-height: 1.45;
+    }
+
+    /* Entry Type Variants */
+    .entry--flight .entry-icon  { background: var(--teal); }
+    .entry--flight .entry-content {
+      background: var(--teal-bg);
+      border-color: var(--teal);
+    }
+    .entry--sight .entry-icon   { background: var(--green); }
+    .entry--sight .entry-content {
+      background: var(--green-bg);
+      border-color: var(--green);
+    }
+    .entry--lunch .entry-icon   { background: var(--amber); }
+    .entry--lunch .entry-content {
+      background: var(--amber-bg);
+      border-color: var(--amber);
+    }
+    .entry--dinner .entry-icon  { background: var(--red); }
+    .entry--dinner .entry-content {
+      background: var(--red-bg);
+      border-color: var(--red);
+    }
+    .entry--breakfast .entry-icon { background: #0891b2; }
+    .entry--breakfast .entry-content {
+      background: #f0fdff;
+      border-color: #0891b2;
+    }
+    .entry--hotel .entry-icon   { background: var(--purple); }
+    .entry--hotel .entry-content {
+      background: var(--purple-bg);
+      border-color: var(--purple);
+    }
+    .entry--drive .entry-icon   { background: var(--slate-mid); }
+    .entry--drive .entry-content {
+      background: #f8fafc;
+      border-color: var(--border);
+    }
+
+    /* Luxury modifier */
+    .entry--luxury .entry-content {
+      background: linear-gradient(135deg, var(--purple-bg) 0%, #fefce8 100%);
+      border-color: var(--gold);
+      box-shadow: 0 0 0 1px rgba(202,138,4,0.2), var(--shadow-sm);
+    }
+    .luxury-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--gold);
+      background: var(--gold-light);
+      border: 1px solid rgba(202,138,4,0.3);
+      border-radius: 20px;
+      padding: 2px 8px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    /* Boarding Pass */
+    .boarding-pass {
+      border: 2px dashed var(--teal);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      background: linear-gradient(135deg, var(--teal-bg) 0%, #f0f9ff 100%);
+      margin-top: 6px;
+    }
+    .bp-route {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .bp-airport {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--navy);
+      letter-spacing: 0.05em;
+    }
+    .bp-arrow {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--teal);
+      font-size: 1.1rem;
+    }
+    .bp-arrow::before,
+    .bp-arrow::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--teal);
+      opacity: 0.4;
+    }
+    .bp-details {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .bp-field { font-size: 0.72rem; }
+    .bp-field-label {
+      color: var(--slate-light);
+      font-weight: 500;
+      display: block;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .bp-field-val { font-weight: 600; color: var(--navy); }
+    .flight-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 10px;
+      background: var(--teal);
+      color: var(--white);
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    /* MapCode Badge */
+    .mapcode-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: var(--radius-sm);
+      padding: 3px 10px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.78rem;
+      color: var(--slate);
+      margin-top: 5px;
+      cursor: pointer;
+      transition: background 0.15s, box-shadow 0.15s;
+    }
+    .mapcode-badge:hover {
+      background: #e2e8f0;
+      box-shadow: var(--shadow-sm);
+    }
+    .copy-btn {
+      font-size: 0.8rem;
+      opacity: 0.6;
+      transition: opacity 0.15s;
+      line-height: 1;
+    }
+    .copy-btn:hover { opacity: 1; }
+
+    /* Meal Tag */
+    .meal-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 1px 8px;
+      border-radius: 20px;
+      font-size: 0.68rem;
+      font-weight: 500;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+    .meal-tag--amber { background: var(--amber-light); color: var(--amber-dark); }
+    .meal-tag--red   { background: var(--red-light);   color: #991b1b; }
+    .meal-tag--blue  { background: #dbeafe; color: #1d4ed8; }
+
+    /* Shakotan blue highlight */
+    .highlight-blue {
+      display: inline-flex;
+      align-items: center;
+      padding: 1px 8px;
+      background: var(--teal-light);
+      color: var(--teal-dark);
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      margin-left: 6px;
+    }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(12px);
+      background: #1e293b;
+      color: var(--white);
+      padding: 10px 22px;
+      border-radius: var(--radius-xl);
+      font-size: 0.85rem;
+      font-weight: 500;
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+      pointer-events: none;
+      z-index: 999;
+      white-space: nowrap;
+      box-shadow: var(--shadow-lg);
+    }
+    #toast.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--navy);
+      color: #93c5fd;
+      text-align: center;
+      padding: 28px 24px;
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .day-nav { display: none; }
+      .hamburger { display: flex; margin-left: auto; }
+      #site-header { padding: 0 16px; }
+      .hero-stats { gap: 8px; }
+      .stat-pill { font-size: 0.8rem; padding: 6px 14px; }
+      .entry-list { padding: 16px 14px 20px; }
+      .entry-list::before { left: 34px; }
+      .time-badge { min-width: 44px; font-size: 0.68rem; }
+      .bp-route { gap: 6px; }
+      .bp-airport { font-size: 1.1rem; }
+      .day-header { padding: 14px 16px; gap: 10px; }
+      .day-stay { display: none; }
+    }
+    @media (max-width: 400px) {
+      .boarding-pass { padding: 10px 10px; }
+      .bp-details { gap: 10px; }
+    }
+
+    /* ── Print ── */
+    @media print {
+      #site-header, #route { display: none; }
+      .day-body { max-height: none !important; opacity: 1 !important; overflow: visible !important; }
+      .chevron { display: none; }
+      .day-block { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; margin-bottom: 16px; }
+      body { background: white; color: black; }
+      .entry--luxury .entry-content { box-shadow: none; }
+      #hero {
+        min-height: auto; padding: 32px 16px;
+        -webkit-print-color-adjust: exact; print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Sticky Header ── -->
+<header id="site-header">
+  <div class="header-brand">🗾 <span>北海道</span>之旅</div>
+  <nav class="day-nav" aria-label="Day navigation">
+    <a class="day-nav-link" href="#day-1">Day 1</a>
+    <a class="day-nav-link" href="#day-2">Day 2</a>
+    <a class="day-nav-link" href="#day-3">Day 3</a>
+    <a class="day-nav-link" href="#day-4">Day 4</a>
+    <a class="day-nav-link" href="#day-5">Day 5</a>
+    <a class="day-nav-link" href="#day-6">Day 6</a>
+  </nav>
+  <button class="hamburger" aria-label="Open navigation" aria-expanded="false" id="hamburger">
+    <span></span><span></span><span></span>
+  </button>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile day navigation">
+    <a class="day-nav-link" href="#day-1">Day 1 — 出發·室蘭</a>
+    <a class="day-nav-link" href="#day-2">Day 2 — 地球岬·登別</a>
+    <a class="day-nav-link" href="#day-3">Day 3 — 地獄谷·西海岸</a>
+    <a class="day-nav-link" href="#day-4">Day 4 — 積丹·小樽</a>
+    <a class="day-nav-link" href="#day-5">Day 5 — 小樽·札幌</a>
+    <a class="day-nav-link" href="#day-6">Day 6 — 回程</a>
+  </nav>
+</header>
+
+<!-- ── Hero ── -->
+<section id="hero">
+  <p class="hero-eyebrow">HOKKAIDO · JAPAN · 2025</p>
+  <h1 class="hero-title">北海道六日深度之旅</h1>
+  <p class="hero-subtitle">2025年 9月1日（二）— 9月6日（日）</p>
+  <div class="hero-stats">
+    <span class="stat-pill">✈️ 6天5夜</span>
+    <span class="stat-pill">♨️ 3大溫泉秘境</span>
+    <span class="stat-pill">🦀 北海道美食精華</span>
+    <span class="stat-pill">🚗 自駕探索</span>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">↓</div>
+</section>
+
+<!-- ── Route Bar ── -->
+<section id="route">
+  <p class="route-label">Journey Route</p>
+  <div class="route-scroll-wrap">
+    <div class="route-track">
+      <div class="route-stop">
+        <div class="stop-circle flight">✈️</div>
+        <div class="stop-name">香港<br>HKG</div>
+        <div class="stop-date">9/1 出發</div>
+      </div>
+      <div class="route-stop">
+        <div class="stop-circle city">🏭</div>
+        <div class="stop-name">室蘭</div>
+        <div class="stop-date">Day 1</div>
+      </div>
+      <div class="route-stop">
+        <div class="stop-circle nature">♨️</div>
+        <div class="stop-name">登別</div>
+        <div class="stop-date">Day 2</div>
+      </div>
+      <div class="route-stop">
+        <div class="stop-circle luxury">🌿</div>
+        <div class="stop-name">西海岸<br>岩內</div>
+        <div class="stop-date">Day 3</div>
+      </div>
+      <div class="route-stop">
+        <div class="stop-circle coastal">🌊</div>
+        <div class="stop-name">積丹<br>小樽</div>
+        <div class="stop-date">Day 4</div>
+      </div>
+      <div class="route-stop">
+        <div class="stop-circle city">🦀</div>
+        <div class="stop-name">札幌</div>
+        <div class="stop-date">Day 5</div>
+      </div>
+      <div class="route-stop">
+        <div class="stop-circle flight">✈️</div>
+        <div class="stop-name">香港<br>HKG</div>
+        <div class="stop-date">9/6 回程</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Itinerary ── -->
+<section id="itinerary">
+  <div class="container">
+    <h2 class="section-title">行程詳覽</h2>
+
+    <!-- ╔══════════════════════ DAY 1 ══════════════════════╗ -->
+    <div class="day-block" id="day-1">
+      <div class="day-header" role="button" aria-expanded="false" tabindex="0">
+        <div class="day-num">D<br>1</div>
+        <div class="day-info">
+          <div class="day-date">9月1日（二）</div>
+          <div class="day-theme">✈️ 出發日 · 香港 → 室蘭</div>
+        </div>
+        <div class="day-stay">🏨 Hotel Route Inn Grand 室蘭</div>
+        <span class="chevron">›</span>
+      </div>
+      <div class="day-body">
+        <div class="entry-list">
+
+          <!-- Flight HB880 -->
+          <div class="entry entry--flight">
+            <div class="time-badge">09:05</div>
+            <div class="entry-icon">✈️</div>
+            <div class="entry-content">
+              <div class="entry-title">
+                <span class="flight-badge">HB880</span>
+                &nbsp;去程航班出發
+              </div>
+              <div class="boarding-pass">
+                <div class="bp-route">
+                  <div>
+                    <div class="bp-airport">HKG</div>
+                    <div style="font-size:0.7rem;color:var(--slate-mid)">香港國際機場<br>09:05</div>
+                  </div>
+                  <div class="bp-arrow">✈</div>
+                  <div style="text-align:right">
+                    <div class="bp-airport">CTS</div>
+                    <div style="font-size:0.7rem;color:var(--slate-mid)">新千歲機場<br>15:05</div>
+                  </div>
+                </div>
+                <div class="bp-details">
+                  <div class="bp-field"><span class="bp-field-label">航空公司</span><span class="bp-field-val">大灣區航空</span></div>
+                  <div class="bp-field"><span class="bp-field-label">航班號</span><span class="bp-field-val">HB880</span></div>
+                  <div class="bp-field"><span class="bp-field-label">飛行時間</span><span class="bp-field-val">約 4 小時</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Car pickup -->
+          <div class="entry entry--drive">
+            <div class="time-badge">15:05</div>
+            <div class="entry-icon">🚗</div>
+            <div class="entry-content">
+              <div class="entry-title">新千歲機場取車</div>
+              <div class="entry-detail">租車自駕，開往室蘭（約 1 小時）</div>
+              <span class="mapcode-badge" data-code="7 131 448" role="button" tabindex="0" aria-label="複製 MapCode 7 131 448">
+                🗺️ 7 131 448 <span class="copy-btn">📋</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- Factory night view -->
+          <div class="entry entry--sight">
+            <div class="time-badge">夜間</div>
+            <div class="entry-icon">🏭</div>
+            <div class="entry-content">
+              <div class="entry-title">室蘭工場夜景</div>
+              <div class="entry-detail">北日本最美工業夜景，沿岸燈火輝煌</div>
+            </div>
+          </div>
+
+          <!-- Dinner -->
+          <div class="entry entry--dinner">
+            <div class="time-badge">19:30</div>
+            <div class="entry-icon">🍽️</div>
+            <div class="entry-content">
+              <div class="entry-title">晚餐 — 室蘭 燒鳥一平<span class="meal-tag meal-tag--red">晚餐</span></div>
+              <div class="entry-detail">名物：室蘭豬肉串燒（非羊肉）· 當地老字號</div>
+            </div>
+          </div>
+
+          <!-- Hotel -->
+          <div class="entry entry--hotel">
+            <div class="time-badge">住宿</div>
+            <div class="entry-icon">🏨</div>
+            <div class="entry-content">
+              <div class="entry-title">Hotel Route Inn Grand 室蘭</div>
+              <div class="entry-detail">商務舒適型酒店，鄰近室蘭市中心</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div><!-- /day-1 -->
+
+    <!-- ╔══════════════════════ DAY 2 ══════════════════════╗ -->
+    <div class="day-block" id="day-2">
+      <div class="day-header" role="button" aria-expanded="false" tabindex="0">
+        <div class="day-num">D<br>2</div>
+        <div class="day-info">
+          <div class="day-date">9月2日（三）</div>
+          <div class="day-theme">🌏 地球岬 · 登別溫泉</div>
+        </div>
+        <div class="day-stay">🏨 望樓 NOGUCHI · 登別</div>
+        <span class="chevron">›</span>
+      </div>
+      <div class="day-body">
+        <div class="entry-list">
+
+          <!-- Breakfast -->
+          <div class="entry entry--breakfast">
+            <div class="time-badge">早餐</div>
+            <div class="entry-icon">☕</div>
+            <div class="entry-content">
+              <div class="entry-title">市內精品咖啡<span class="meal-tag meal-tag--blue">早餐</span></div>
+              <div class="entry-detail">於室蘭市內尋覓精品咖啡館，輕鬆開啟一天</div>
+            </div>
+          </div>
+
+          <!-- Chikyuusan -->
+          <div class="entry entry--sight">
+            <div class="time-badge">09:30</div>
+            <div class="entry-icon">🌏</div>
+            <div class="entry-content">
+              <div class="entry-title">地球岬（チキウ岬）</div>
+              <div class="entry-detail">室蘭著名岬角，可眺望廣闊海平線，感受大地的弧度</div>
+              <span class="mapcode-badge" data-code="159 195 020" role="button" tabindex="0" aria-label="複製 MapCode 159 195 020">
+                🗺️ 159 195 020 <span class="copy-btn">📋</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- Lunch A5 Wagyu -->
+          <div class="entry entry--lunch">
+            <div class="time-badge">12:30</div>
+            <div class="entry-icon">🥩</div>
+            <div class="entry-content">
+              <div class="entry-title">午餐 — 白老 牛之里<span class="meal-tag meal-tag--amber">午餐</span></div>
+              <div class="entry-detail">品嚐頂級 <strong>白老 A5 和牛</strong>，順路必試，鮮味無窮</div>
+            </div>
+          </div>
+
+          <!-- Check-in Borou NOGUCHI -->
+          <div class="entry entry--hotel entry--luxury">
+            <div class="time-badge">15:00</div>
+            <div class="entry-icon">✨</div>
+            <div class="entry-content">
+              <div class="entry-title">
+                Check-in 望樓 NOGUCHI 登別
+                <span class="luxury-badge">✨ Luxury</span>
+              </div>
+              <div class="entry-detail">
+                <strong>行政套房</strong>入住（不設預算）<br>
+                晚餐：旅館懷石料理 — 道產時令食材精心料理<br>
+                享受房內私人溫泉湯屋，盡情舒緩
+              </div>
+            </div>
+          </div>
+
+          <!-- Hotel stay -->
+          <div class="entry entry--hotel">
+            <div class="time-badge">住宿</div>
+            <div class="entry-icon">🏨</div>
+            <div class="entry-content">
+              <div class="entry-title">望樓 NOGUCHI 登別</div>
+              <div class="entry-detail">登別溫泉區頂級旅館，私人溫泉、懷石料理</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div><!-- /day-2 -->
+
+    <!-- ╔══════════════════════ DAY 3 ══════════════════════╗ -->
+    <div class="day-block" id="day-3">
+      <div class="day-header" role="button" aria-expanded="false" tabindex="0">
+        <div class="day-num">D<br>3</div>
+        <div class="day-info">
+          <div class="day-date">9月3日（四）</div>
+          <div class="day-theme">🌋 地獄谷 · 西行日本海</div>
+        </div>
+        <div class="day-stay">🏨 坐忘林 Zaborin · 西海岸</div>
+        <span class="chevron">›</span>
+      </div>
+      <div class="day-body">
+        <div class="entry-list">
+
+          <!-- Breakfast at inn -->
+          <div class="entry entry--breakfast">
+            <div class="time-badge">早餐</div>
+            <div class="entry-icon">🍱</div>
+            <div class="entry-content">
+              <div class="entry-title">旅館慢享早餐<span class="meal-tag meal-tag--blue">早餐</span></div>
+              <div class="entry-detail">望樓 NOGUCHI 精緻早膳，不急於趕路</div>
+            </div>
+          </div>
+
+          <!-- Jigokudani -->
+          <div class="entry entry--sight">
+            <div class="time-badge">10:00</div>
+            <div class="entry-icon">🌋</div>
+            <div class="entry-content">
+              <div class="entry-title">地獄谷（登別）</div>
+              <div class="entry-detail">硫磺噴氣壯觀，火山地熱景觀令人震撼</div>
+              <span class="mapcode-badge" data-code="603 287 021" role="button" tabindex="0" aria-label="複製 MapCode 603 287 021">
+                🗺️ 603 287 021 <span class="copy-btn">📋</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- Oyunuma -->
+          <div class="entry entry--sight">
+            <div class="time-badge"></div>
+            <div class="entry-icon">💧</div>
+            <div class="entry-content">
+              <div class="entry-title">大湯沼</div>
+              <div class="entry-detail">登別最大天然硫磺湖，湖面終年熱氣騰騰</div>
+            </div>
+          </div>
+
+          <!-- Lunch Soba -->
+          <div class="entry entry--lunch">
+            <div class="time-badge">13:00</div>
+            <div class="entry-icon">🍜</div>
+            <div class="entry-content">
+              <div class="entry-title">午餐 — 溫泉街蕎麥麵<span class="meal-tag meal-tag--amber">午餐</span></div>
+              <div class="entry-detail">登別溫泉街散策，享用手打蕎麥麵</div>
+            </div>
+          </div>
+
+          <!-- Drive west -->
+          <div class="entry entry--drive">
+            <div class="time-badge">15:00</div>
+            <div class="entry-icon">🚗</div>
+            <div class="entry-content">
+              <div class="entry-title">西行長征 — 日本海側</div>
+              <div class="entry-detail">開往西海岸（約 2 小時），沿途欣賞山海交融景色</div>
+            </div>
+          </div>
+
+          <!-- Check-in Zaborin -->
+          <div class="entry entry--hotel entry--luxury">
+            <div class="time-badge">17:30</div>
+            <div class="entry-icon">🌿</div>
+            <div class="entry-content">
+              <div class="entry-title">
+                Check-in 坐忘林 Zaborin
+                <span class="luxury-badge">✨ Luxury</span>
+              </div>
+              <div class="entry-detail">
+                岩內/二世古隱世旅館，只有十五間客室<br>
+                以「忘却俗世，回歸自然」為主題，純和式空間
+              </div>
+            </div>
+          </div>
+
+          <!-- Hotel stay -->
+          <div class="entry entry--hotel">
+            <div class="time-badge">住宿</div>
+            <div class="entry-icon">🏨</div>
+            <div class="entry-content">
+              <div class="entry-title">坐忘林（Zaborin）</div>
+              <div class="entry-detail">西海岸/岩內 · 二世古周邊極致隱居旅館</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div><!-- /day-3 -->
+
+    <!-- ╔══════════════════════ DAY 4 ══════════════════════╗ -->
+    <div class="day-block" id="day-4">
+      <div class="day-header" role="button" aria-expanded="false" tabindex="0">
+        <div class="day-num">D<br>4</div>
+        <div class="day-info">
+          <div class="day-date">9月4日（五）</div>
+          <div class="day-theme">🌊 積丹藍 · 神威岬 · 小樽壽司</div>
+        </div>
+        <div class="day-stay">🏨 小樽運河精品酒店</div>
+        <span class="chevron">›</span>
+      </div>
+      <div class="day-body">
+        <div class="entry-list">
+
+          <!-- Breakfast Zaborin -->
+          <div class="entry entry--breakfast">
+            <div class="time-badge">早餐</div>
+            <div class="entry-icon">🍱</div>
+            <div class="entry-content">
+              <div class="entry-title">旅館極致早餐<span class="meal-tag meal-tag--blue">早餐</span></div>
+              <div class="entry-detail">坐忘林精緻早膳，道產食材，沉浸自然之中</div>
+            </div>
+          </div>
+
+          <!-- Kamui Cape -->
+          <div class="entry entry--sight">
+            <div class="time-badge">10:00</div>
+            <div class="entry-icon">🌊</div>
+            <div class="entry-content">
+              <div class="entry-title">
+                積丹半島 — 神威岬
+                <span class="highlight-blue">積丹藍</span>
+              </div>
+              <div class="entry-detail">北海道最美海岸線，清澈湛藍的「積丹藍」舉世聞名</div>
+              <span class="mapcode-badge" data-code="945 322 158" role="button" tabindex="0" aria-label="複製 MapCode 945 322 158">
+                🗺️ 945 322 158 <span class="copy-btn">📋</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- Lunch Sea urchin -->
+          <div class="entry entry--lunch">
+            <div class="time-badge">13:00</div>
+            <div class="entry-icon">🦔</div>
+            <div class="entry-content">
+              <div class="entry-title">午餐 — 積丹 海鮮丼<span class="meal-tag meal-tag--amber">午餐</span></div>
+              <div class="entry-detail">9月時令：<strong>生海膽</strong>、鮮魚刺身丼，積丹當地名物，必試</div>
+            </div>
+          </div>
+
+          <!-- Shimotake -->
+          <div class="entry entry--sight">
+            <div class="time-badge">15:30</div>
+            <div class="entry-icon">🏝️</div>
+            <div class="entry-content">
+              <div class="entry-title">島武意海岸</div>
+              <div class="entry-detail">被譽為北海道最美海灘，透明碧藍海水令人心曠神怡</div>
+            </div>
+          </div>
+
+          <!-- Yellow Cape -->
+          <div class="entry entry--sight">
+            <div class="time-badge"></div>
+            <div class="entry-icon">🌅</div>
+            <div class="entry-content">
+              <div class="entry-title">黃金岬</div>
+              <div class="entry-detail">積丹町的著名展望台，俯瞰積丹藍絕色全景</div>
+            </div>
+          </div>
+
+          <!-- Drive to Otaru -->
+          <div class="entry entry--drive">
+            <div class="time-badge">下午</div>
+            <div class="entry-icon">🚗</div>
+            <div class="entry-content">
+              <div class="entry-title">沿日本海公路駕車往小樽</div>
+              <div class="entry-detail">海岸公路景色絕美，建議放慢速度欣賞</div>
+            </div>
+          </div>
+
+          <!-- Dinner Otaru Sushi -->
+          <div class="entry entry--dinner">
+            <div class="time-badge">19:00</div>
+            <div class="entry-icon">🍣</div>
+            <div class="entry-content">
+              <div class="entry-title">晚餐 — 小樽壽司名店<span class="meal-tag meal-tag--red">晚餐</span></div>
+              <div class="entry-detail">小樽素以新鮮海產握壽司聞名，鮮味絕佳</div>
+            </div>
+          </div>
+
+          <!-- Hotel Otaru -->
+          <div class="entry entry--hotel">
+            <div class="time-badge">住宿</div>
+            <div class="entry-icon">🏨</div>
+            <div class="entry-content">
+              <div class="entry-title">小樽運河前精品酒店</div>
+              <div class="entry-detail">緊鄰小樽運河，感受古典石造倉庫街風情</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div><!-- /day-4 -->
+
+    <!-- ╔══════════════════════ DAY 5 ══════════════════════╗ -->
+    <div class="day-block" id="day-5">
+      <div class="day-header" role="button" aria-expanded="false" tabindex="0">
+        <div class="day-num">D<br>5</div>
+        <div class="day-info">
+          <div class="day-date">9月5日（六）</div>
+          <div class="day-theme">🦀 小樽散策 · 札幌購物 · 三大蟹</div>
+        </div>
+        <div class="day-stay">🏨 札幌中央區五星酒店</div>
+        <span class="chevron">›</span>
+      </div>
+      <div class="day-body">
+        <div class="entry-list">
+
+          <!-- Breakfast Sankaku Market -->
+          <div class="entry entry--breakfast">
+            <div class="time-badge">早餐</div>
+            <div class="entry-icon">🐟</div>
+            <div class="entry-content">
+              <div class="entry-title">三角市場<span class="meal-tag meal-tag--blue">早餐</span></div>
+              <div class="entry-detail">小樽著名海鮮市場，可即買即食新鮮海產</div>
+            </div>
+          </div>
+
+          <!-- Otaru stroll -->
+          <div class="entry entry--sight">
+            <div class="time-badge">10:00</div>
+            <div class="entry-icon">🏘️</div>
+            <div class="entry-content">
+              <div class="entry-title">小樽散策</div>
+              <div class="entry-detail">小樽運河、堺町通り、玻璃工藝品店、音樂盒博物館</div>
+            </div>
+          </div>
+
+          <!-- Drive to Sapporo -->
+          <div class="entry entry--drive">
+            <div class="time-badge">中午</div>
+            <div class="entry-icon">🚗</div>
+            <div class="entry-content">
+              <div class="entry-title">駕車往札幌</div>
+              <div class="entry-detail">小樽至札幌約 40 分鐘，還車後轉乘市內交通</div>
+            </div>
+          </div>
+
+          <!-- Lunch Crab -->
+          <div class="entry entry--lunch">
+            <div class="time-badge">13:00</div>
+            <div class="entry-icon">🦀</div>
+            <div class="entry-content">
+              <div class="entry-title">午餐 — 札幌 蟹本家<span class="meal-tag meal-tag--amber">午餐</span></div>
+              <div class="entry-detail">豪華螃蟹料理套餐，毛蟹、松葉蟹等多種蟹料理</div>
+            </div>
+          </div>
+
+          <!-- Shopping -->
+          <div class="entry entry--sight">
+            <div class="time-badge">下午</div>
+            <div class="entry-icon">🛍️</div>
+            <div class="entry-content">
+              <div class="entry-title">大丸百貨 &amp; 狸小路</div>
+              <div class="entry-detail">掃盡北海道特產手信：六花亭、白色戀人、北菓樓</div>
+            </div>
+          </div>
+
+          <!-- Dinner Hyosetsu no Mon -->
+          <div class="entry entry--dinner">
+            <div class="time-badge">19:30</div>
+            <div class="entry-icon">🦀</div>
+            <div class="entry-content">
+              <div class="entry-title">最後晚餐 — 冰雪之門<span class="meal-tag meal-tag--red">晚餐</span></div>
+              <div class="entry-detail">
+                <strong>三大蟹奢華盛宴</strong>：毛蟹 × 松葉蟹 × 帝王蟹<br>
+                ⚠️ 需提前預約，座位有限
+              </div>
+            </div>
+          </div>
+
+          <!-- Hotel Sapporo -->
+          <div class="entry entry--hotel entry--luxury">
+            <div class="time-badge">住宿</div>
+            <div class="entry-icon">⭐</div>
+            <div class="entry-content">
+              <div class="entry-title">
+                札幌中央區五星酒店
+                <span class="luxury-badge">✨ Luxury</span>
+              </div>
+              <div class="entry-detail">札幌市中心頂級住宿，鄰近狸小路、大通公園</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div><!-- /day-5 -->
+
+    <!-- ╔══════════════════════ DAY 6 ══════════════════════╗ -->
+    <div class="day-block" id="day-6">
+      <div class="day-header" role="button" aria-expanded="false" tabindex="0">
+        <div class="day-num">D<br>6</div>
+        <div class="day-info">
+          <div class="day-date">9月6日（日）</div>
+          <div class="day-theme">✈️ 回程 · 圓滿結束</div>
+        </div>
+        <div class="day-stay">✈️ 返回香港</div>
+        <span class="chevron">›</span>
+      </div>
+      <div class="day-body">
+        <div class="entry-list">
+
+          <!-- Sato Suisan -->
+          <div class="entry entry--breakfast">
+            <div class="time-badge">09:30</div>
+            <div class="entry-icon">🍙</div>
+            <div class="entry-content">
+              <div class="entry-title">佐藤水產 — 海鮮飯糰<span class="meal-tag meal-tag--blue">早餐</span></div>
+              <div class="entry-detail">最後一次購買北海道手信，順手帶走海鮮飯糰</div>
+            </div>
+          </div>
+
+          <!-- Drive to airport -->
+          <div class="entry entry--drive">
+            <div class="time-badge">上午</div>
+            <div class="entry-icon">🚗</div>
+            <div class="entry-content">
+              <div class="entry-title">駕車往新千歲機場</div>
+              <div class="entry-detail">機場附近加油站入油後還車</div>
+            </div>
+          </div>
+
+          <!-- Airport lunch Ramen -->
+          <div class="entry entry--lunch">
+            <div class="time-badge">11:30</div>
+            <div class="entry-icon">🍜</div>
+            <div class="entry-content">
+              <div class="entry-title">機場午餐 — 一幻拉麵<span class="meal-tag meal-tag--amber">午餐</span></div>
+              <div class="entry-detail">新千歲機場國內線「拉麵道場」內，最後補貨天堂</div>
+            </div>
+          </div>
+
+          <!-- Return car -->
+          <div class="entry entry--drive">
+            <div class="time-badge">下午</div>
+            <div class="entry-icon">🔑</div>
+            <div class="entry-content">
+              <div class="entry-title">還車 &amp; 辦理登機</div>
+              <div class="entry-detail">機場附近入油後還車，預留充裕時間辦理登機手續</div>
+            </div>
+          </div>
+
+          <!-- Flight HB881 -->
+          <div class="entry entry--flight">
+            <div class="time-badge">16:05</div>
+            <div class="entry-icon">✈️</div>
+            <div class="entry-content">
+              <div class="entry-title">
+                <span class="flight-badge">HB881</span>
+                &nbsp;回程航班出發
+              </div>
+              <div class="boarding-pass">
+                <div class="bp-route">
+                  <div>
+                    <div class="bp-airport">CTS</div>
+                    <div style="font-size:0.7rem;color:var(--slate-mid)">新千歲機場<br>16:05</div>
+                  </div>
+                  <div class="bp-arrow">✈</div>
+                  <div style="text-align:right">
+                    <div class="bp-airport">HKG</div>
+                    <div style="font-size:0.7rem;color:var(--slate-mid)">香港國際機場<br>~20:00</div>
+                  </div>
+                </div>
+                <div class="bp-details">
+                  <div class="bp-field"><span class="bp-field-label">航空公司</span><span class="bp-field-val">大灣區航空</span></div>
+                  <div class="bp-field"><span class="bp-field-label">航班號</span><span class="bp-field-val">HB881</span></div>
+                  <div class="bp-field"><span class="bp-field-label">結束</span><span class="bp-field-val">完美6日之旅</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div><!-- /day-6 -->
+
+  </div><!-- /container -->
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div>🗾 北海道六日深度之旅 · 2025年9月1–6日</div>
+  <div style="margin-top:6px;opacity:0.6">室蘭 · 登別 · 西海岸 · 積丹 · 小樽 · 札幌</div>
+</footer>
+
+<!-- ── Toast ── -->
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ── Clipboard helper ── */
+  function copyToClipboard(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text);
+    }
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+    return Promise.resolve();
+  }
+
+  /* ── Toast ── */
+  var toast = document.getElementById('toast');
+  var toastTimer;
+  function showToast(msg) {
+    clearTimeout(toastTimer);
+    toast.textContent = msg;
+    toast.classList.add('visible');
+    toastTimer = setTimeout(function () {
+      toast.classList.remove('visible');
+    }, 2200);
+  }
+
+  /* ── MapCode copy ── */
+  document.querySelectorAll('.mapcode-badge').forEach(function (badge) {
+    function doCopy(e) {
+      e.stopPropagation();
+      var code = badge.dataset.code;
+      copyToClipboard(code).then(function () {
+        showToast('MapCode ' + code + ' 已複製！');
+      });
+    }
+    badge.addEventListener('click', doCopy);
+    badge.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') doCopy(e);
+    });
+  });
+
+  /* ── Accordion ── */
+  function openDay(header) {
+    var body = header.nextElementSibling;
+    header.setAttribute('aria-expanded', 'true');
+    var chevron = header.querySelector('.chevron');
+    if (chevron) chevron.classList.add('open');
+    body.style.maxHeight = body.scrollHeight + 'px';
+    body.style.opacity = '1';
+    body.classList.add('open');
+  }
+
+  function closeDay(header) {
+    var body = header.nextElementSibling;
+    header.setAttribute('aria-expanded', 'false');
+    var chevron = header.querySelector('.chevron');
+    if (chevron) chevron.classList.remove('open');
+    body.style.maxHeight = '0';
+    body.style.opacity = '0';
+    body.classList.remove('open');
+  }
+
+  document.querySelectorAll('.day-header').forEach(function (header) {
+    header.addEventListener('click', function () {
+      var isOpen = header.getAttribute('aria-expanded') === 'true';
+      if (isOpen) {
+        closeDay(header);
+      } else {
+        openDay(header);
+      }
+    });
+    header.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        header.click();
+      }
+    });
+  });
+
+  /* Open Day 1 by default */
+  var day1Header = document.querySelector('#day-1 .day-header');
+  if (day1Header) openDay(day1Header);
+
+  /* ── Mobile Nav ── */
+  var hamburger = document.getElementById('hamburger');
+  var mobileNav = document.getElementById('mobile-nav');
+  hamburger.addEventListener('click', function () {
+    var isOpen = mobileNav.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', String(isOpen));
+  });
+  mobileNav.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      mobileNav.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  });
+  document.addEventListener('click', function (e) {
+    if (!hamburger.contains(e.target) && !mobileNav.contains(e.target)) {
+      mobileNav.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  /* ── Active Day Highlight in Nav ── */
+  var navLinks = document.querySelectorAll('.day-nav-link');
+  var dayBlocks = document.querySelectorAll('.day-block');
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var id = entry.target.id;
+          navLinks.forEach(function (l) { l.classList.remove('active'); });
+          var active = document.querySelector('.day-nav-link[href="#' + id + '"]');
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { threshold: 0.3 });
+    dayBlocks.forEach(function (b) { observer.observe(b); });
+  }
+
+})();
+</script>
+</body>
+</html>
