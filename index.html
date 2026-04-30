@@ -697,9 +697,88 @@
         -webkit-print-color-adjust: exact; print-color-adjust: exact;
       }
     }
+
+  /* -- Password Gate -- */
+  #pw-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #0d2847;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Noto Sans TC', sans-serif;
+  }
+  #pw-box {
+    background: #fff;
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  #pw-logo { font-size: 2.5rem; margin-bottom: 0.5rem; }
+  #pw-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.25rem;
+    color: #0d2847;
+    margin: 0 0 0.25rem;
+  }
+  #pw-sub { color: #64748b; font-size: 0.85rem; margin: 0 0 1.5rem; }
+  #pw-label { color: #374151; font-size: 0.9rem; margin: 0 0 0.75rem; }
+  #pw-input {
+    width: 100%;
+    padding: 0.65rem 0.875rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+    letter-spacing: 0.25em;
+  }
+  #pw-input:focus { border-color: #0e7490; }
+  #pw-error {
+    color: #dc2626;
+    font-size: 0.82rem;
+    margin: 0.5rem 0 0;
+  }
+  #pw-btn {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 0.7rem;
+    background: #0e7490;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Noto Sans TC', sans-serif;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  #pw-btn:hover { background: #0c5f77; }
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    20%,60% { transform: translateX(-6px); }
+    40%,80% { transform: translateX(6px); }
+  }
+  #pw-input.shake { animation: shake 0.45s ease; }
   </style>
 </head>
 <body>
+<div id="pw-gate">
+  <div id="pw-box">
+    <div id="pw-logo">&#128506;</div>
+    <h2 id="pw-title">&#21271;&#28023;&#36947;&#20845;&#26085;&#28145;&#24230;&#20043;&#26053;</h2>
+    <p id="pw-sub">Hokkaido Itinerary &middot; 2026</p>
+    <p id="pw-label">Enter password to continue</p>
+    <input id="pw-input" type="password" placeholder="Password" autocomplete="off" maxlength="20" />
+    <p id="pw-error" hidden>Incorrect password. Please try again.</p>
+    <button id="pw-btn">Unlock &rarr;</button>
+  </div>
+</div>
+
 
 <!-- ── Sticky Header ── -->
 <header id="site-header">
@@ -1480,6 +1559,37 @@
   }
 
 })();
+
+  /* -- Password Gate Logic -- */
+  (function () {
+    var gate  = document.getElementById('pw-gate');
+    var input = document.getElementById('pw-input');
+    var btn   = document.getElementById('pw-btn');
+    var err   = document.getElementById('pw-error');
+
+    if (sessionStorage.getItem('itinerary_unlocked')) {
+      gate.style.display = 'none';
+      return;
+    }
+
+    function attempt() {
+      if (input.value === '1234') {
+        sessionStorage.setItem('itinerary_unlocked', '1');
+        gate.style.transition = 'opacity 0.4s';
+        gate.style.opacity = '0';
+        setTimeout(function () { gate.style.display = 'none'; }, 420);
+      } else {
+        err.hidden = false;
+        input.classList.add('shake');
+        input.value = '';
+        setTimeout(function () { input.classList.remove('shake'); }, 500);
+      }
+    }
+
+    btn.addEventListener('click', attempt);
+    input.addEventListener('keydown', function (e) { if (e.key === 'Enter') attempt(); });
+    input.focus();
+  })();
 </script>
 </body>
 </html>
