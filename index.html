@@ -7,6 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <style>
     /* ── Custom Properties ── */
     :root {
@@ -956,8 +958,7 @@
     <p class="map-subtitle">點擊地圖標記查看每個目的地詳情 · 共 13 個景點</p>
     <div id="google-map" role="region" aria-label="北海道行程地圖">
       <div id="map-fallback">
-        <p>📍 地圖載入中… 如未顯示，請於 <code>index.html</code> 將 <code>YOUR_GOOGLE_MAPS_API_KEY</code> 替換為你的 Google Maps JavaScript API Key。</p>
-        <p style="margin-top:10px">取得 API Key：<br>Google Cloud Console → APIs &amp; Services → Credentials → Create credentials → API Key（並啟用 <strong>Maps JavaScript API</strong>）</p>
+        <p>📍 地圖載入中… 若長時間未顯示，請檢查網絡連線（地圖資源來自 OpenStreetMap / unpkg CDN）。</p>
       </div>
     </div>
     <div class="map-legend" aria-label="地圖圖例">
@@ -1700,7 +1701,7 @@
     input.focus();
   })();
 
-  /* ── Google Maps: 行程目的地 ── */
+  /* ── Leaflet + OpenStreetMap: 行程目的地 ── */
   window.HOKKAIDO_DESTINATIONS = [
     { day: 'Day 1', name: '新千歲機場 CTS', desc: '抵達後租車自駕往室蘭（約 1 小時）', lat: 42.7752, lng: 141.6925, type: 'flight' },
     { day: 'Day 1', name: '室蘭工場夜景 · 白鳥大橋', desc: '北海道三大工場夜景之一', lat: 42.3320, lng: 140.9638, type: 'city' },
@@ -1717,29 +1718,13 @@
     { day: 'Day 5', name: 'Toriton 伏古店', desc: '🔑 重點晚餐 · 自駕前往（住宅區分店，設停車場）', lat: 43.0884, lng: 141.4135, type: 'food' }
   ];
 
-  window.initMap = function () {
+  function initLeafletMap() {
     var dests = window.HOKKAIDO_DESTINATIONS;
     var mapEl = document.getElementById('google-map');
-    if (!mapEl || !window.google || !google.maps) return;
+    if (!mapEl || !window.L) return;
 
     var fallback = document.getElementById('map-fallback');
     if (fallback) fallback.style.display = 'none';
-
-    var bounds = new google.maps.LatLngBounds();
-    dests.forEach(function (d) { bounds.extend({ lat: d.lat, lng: d.lng }); });
-
-    var map = new google.maps.Map(mapEl, {
-      center: bounds.getCenter(),
-      zoom: 8,
-      mapTypeControl: false,
-      streetViewControl: false,
-      fullscreenControl: true,
-      styles: [
-        { featureType: 'poi', stylers: [{ visibility: 'simplified' }] },
-        { featureType: 'transit', stylers: [{ visibility: 'off' }] }
-      ]
-    });
-    map.fitBounds(bounds, 60);
 
     var typeColor = {
       flight:    '#0e7490',
@@ -1750,65 +1735,64 @@
       coast:     '#0369a1'
     };
 
-    var infoWindow = new google.maps.InfoWindow();
+    var map = L.map(mapEl, { scrollWheelZoom: false });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
 
+    var latlngs = [];
     dests.forEach(function (d, idx) {
-      var marker = new google.maps.Marker({
-        position: { lat: d.lat, lng: d.lng },
-        map: map,
-        title: d.name,
-        label: { text: String(idx + 1), color: '#ffffff', fontSize: '12px', fontWeight: '700' },
-        icon: {
-          path: google.maps.SymbolPath.CIRCLE,
-          fillColor: typeColor[d.type] || '#0d2847',
-          fillOpacity: 1,
-          strokeColor: '#ffffff',
-          strokeWeight: 3,
-          scale: 13
-        }
+      var color = typeColor[d.type] || '#0d2847';
+      var icon = L.divIcon({
+        className: 'trip-marker',
+        html:
+          '<div style="width:28px;height:28px;border-radius:50%;background:' + color +
+          ';border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.35);' +
+          'display:flex;align-items:center;justify-content:center;color:#fff;' +
+          'font-size:12px;font-weight:700;line-height:1">' + (idx + 1) + '</div>',
+        iconSize: [28, 28],
+        iconAnchor: [14, 14],
+        popupAnchor: [0, -14]
       });
-      marker.addListener('click', function () {
-        var html =
-          '<div style="max-width:240px;padding:4px 2px">' +
-            '<span class="gm-iw-day">' + d.day + '</span>' +
-            '<div class="gm-iw-title">' + d.name + '</div>' +
-            '<div class="gm-iw-desc">' + d.desc + '</div>' +
-          '</div>';
-        infoWindow.setContent(html);
-        infoWindow.open(map, marker);
-      });
+      var marker = L.marker([d.lat, d.lng], { icon: icon, title: d.name }).addTo(map);
+      var popupHtml =
+        '<div style="max-width:240px;padding:2px">' +
+          '<span class="gm-iw-day">' + d.day + '</span>' +
+          '<div class="gm-iw-title">' + d.name + '</div>' +
+          '<div class="gm-iw-desc">' + d.desc + '</div>' +
+        '</div>';
+      marker.bindPopup(popupHtml);
+      latlngs.push([d.lat, d.lng]);
     });
 
-    var path = new google.maps.Polyline({
-      path: dests.map(function (d) { return { lat: d.lat, lng: d.lng }; }),
-      geodesic: true,
-      strokeColor: '#0e7490',
-      strokeOpacity: 0,
-      icons: [{
-        icon: { path: 'M 0,-1 0,1', strokeOpacity: 0.85, scale: 3, strokeColor: '#0e7490' },
-        offset: '0',
-        repeat: '14px'
-      }],
-      map: map
-    });
-  };
+    L.polyline(latlngs, {
+      color: '#0e7490',
+      weight: 3,
+      opacity: 0.85,
+      dashArray: '6 8'
+    }).addTo(map);
 
-  /* ── Map fallback if API key missing / load fails ── */
-  window.gm_authFailure = function () {
-    var fb = document.getElementById('map-fallback');
-    if (fb) fb.style.display = 'block';
-  };
+    map.fitBounds(latlngs, { padding: [40, 40] });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLeafletMap);
+  } else {
+    initLeafletMap();
+  }
+
   setTimeout(function () {
-    if (!window.google || !window.google.maps) {
+    if (!window.L) {
       var fb = document.getElementById('map-fallback');
       if (fb) fb.style.display = 'block';
     }
   }, 6000);
 </script>
 
-<!-- Google Maps JavaScript API ── 請將 YOUR_GOOGLE_MAPS_API_KEY 替換為你的 API Key -->
-<script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap&language=zh-TW&region=JP"
-  onerror="window.gm_authFailure && window.gm_authFailure();"></script>
+<!-- Leaflet (OpenStreetMap) -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
 </body>
 </html>
