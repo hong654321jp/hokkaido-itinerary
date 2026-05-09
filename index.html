@@ -7,6 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <style>
     /* ── Custom Properties ── */
     :root {
@@ -684,9 +686,93 @@
       .bp-details { gap: 10px; }
     }
 
+    /* ── Map Section ── */
+    #map-section {
+      background: var(--white);
+      padding: 60px 0 64px;
+      border-bottom: 1px solid var(--border);
+    }
+    #map-section .container { max-width: 1100px; }
+    .map-eyebrow {
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      color: var(--slate-light);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .map-subtitle {
+      text-align: center;
+      color: var(--slate-mid);
+      font-size: 0.95rem;
+      margin-top: -32px;
+      margin-bottom: 28px;
+    }
+    #google-map {
+      width: 100%;
+      height: 520px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      background: #e5edf5;
+      overflow: hidden;
+    }
+    #map-fallback {
+      display: none;
+      padding: 28px;
+      text-align: center;
+      color: var(--slate-mid);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    #map-fallback code {
+      background: var(--gray-bg);
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      color: var(--navy);
+    }
+    .map-legend {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px 22px;
+      margin-top: 22px;
+      font-size: 0.82rem;
+      color: var(--slate-mid);
+    }
+    .map-legend-item { display: inline-flex; align-items: center; gap: 8px; }
+    .map-legend-dot {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      border: 2px solid var(--white);
+      box-shadow: var(--shadow-sm);
+    }
+    .gm-iw-title {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      color: var(--navy);
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+    .gm-iw-day {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--white);
+      background: var(--teal);
+      padding: 2px 8px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+    }
+    .gm-iw-desc { font-size: 0.85rem; color: var(--slate-mid); line-height: 1.5; }
+    @media (max-width: 640px) {
+      #google-map { height: 420px; }
+    }
+
     /* ── Print ── */
     @media print {
-      #site-header, #route { display: none; }
+      #site-header, #route, #map-section { display: none; }
       .day-body { max-height: none !important; opacity: 1 !important; overflow: visible !important; }
       .chevron { display: none; }
       .day-block { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; margin-bottom: 16px; }
@@ -790,6 +876,7 @@
     <a class="day-nav-link" href="#day-4">Day 4</a>
     <a class="day-nav-link" href="#day-5">Day 5</a>
     <a class="day-nav-link" href="#day-6">Day 6</a>
+    <a class="day-nav-link" href="#map-section">🗺️ 地圖</a>
   </nav>
   <button class="hamburger" aria-label="Open navigation" aria-expanded="false" id="hamburger">
     <span></span><span></span><span></span>
@@ -801,6 +888,7 @@
     <a class="day-nav-link" href="#day-4">Day 4 — 積丹·小樽</a>
     <a class="day-nav-link" href="#day-5">Day 5 — 小樽·札幌</a>
     <a class="day-nav-link" href="#day-6">Day 6 — 回程</a>
+    <a class="day-nav-link" href="#map-section">🗺️ 行程地圖</a>
   </nav>
 </header>
 
@@ -858,6 +946,28 @@
         <div class="stop-name">香港<br>HKG</div>
         <div class="stop-date">9/6 回程</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Map ── -->
+<section id="map-section">
+  <div class="container">
+    <p class="map-eyebrow">Trip Map</p>
+    <h2 class="section-title">行程地圖</h2>
+    <p class="map-subtitle">點擊地圖標記查看每個目的地詳情 · 共 13 個景點</p>
+    <div id="google-map" role="region" aria-label="北海道行程地圖">
+      <div id="map-fallback">
+        <p>📍 地圖載入中… 若長時間未顯示，請檢查網絡連線（地圖資源來自 OpenStreetMap / unpkg CDN）。</p>
+      </div>
+    </div>
+    <div class="map-legend" aria-label="地圖圖例">
+      <span class="map-legend-item"><span class="map-legend-dot" style="background:#0e7490"></span>機場</span>
+      <span class="map-legend-item"><span class="map-legend-dot" style="background:#0d2847"></span>城市</span>
+      <span class="map-legend-item"><span class="map-legend-dot" style="background:#15803d"></span>自然景點</span>
+      <span class="map-legend-item"><span class="map-legend-dot" style="background:#dc2626"></span>溫泉旅館</span>
+      <span class="map-legend-item"><span class="map-legend-dot" style="background:#d97706"></span>美食</span>
+      <span class="map-legend-item"><span class="map-legend-dot" style="background:#0369a1"></span>海岸</span>
     </div>
   </div>
 </section>
@@ -1590,6 +1700,99 @@
     input.addEventListener('keydown', function (e) { if (e.key === 'Enter') attempt(); });
     input.focus();
   })();
+
+  /* ── Leaflet + OpenStreetMap: 行程目的地 ── */
+  window.HOKKAIDO_DESTINATIONS = [
+    { day: 'Day 1', name: '新千歲機場 CTS', desc: '抵達後租車自駕往室蘭（約 1 小時）', lat: 42.7752, lng: 141.6925, type: 'flight' },
+    { day: 'Day 1', name: '室蘭工場夜景 · 白鳥大橋', desc: '北海道三大工場夜景之一', lat: 42.3320, lng: 140.9638, type: 'city' },
+    { day: 'Day 1', name: 'Hotel Route Inn Grand 室蘭', desc: '商務舒適型酒店，鄰近室蘭市中心', lat: 42.3153, lng: 140.9737, type: 'city' },
+    { day: 'Day 2', name: '地球岬（チキウ岬）', desc: '室蘭著名岬角，眺望廣闊海平線', lat: 42.3074, lng: 140.9892, type: 'nature' },
+    { day: 'Day 2', name: '望樓 NOGUCHI 登別', desc: '登別溫泉區頂級旅館，私人溫泉、懷石料理', lat: 42.4937, lng: 141.1473, type: 'hotspring' },
+    { day: 'Day 3', name: '登別地獄谷', desc: '登別最大天然硫磺湖，湖面終年熱氣騰騰', lat: 42.4960, lng: 141.1494, type: 'nature' },
+    { day: 'Day 3', name: '坐忘林 Zaborin · 西海岸', desc: '岩內 / 二世古周邊極致隱居旅館，僅十五間客室', lat: 42.8505, lng: 140.6844, type: 'hotspring' },
+    { day: 'Day 4', name: '神威岬 · 積丹藍', desc: '北海道最美海岸線，舉世聞名的「積丹藍」', lat: 43.3309, lng: 140.5292, type: 'coast' },
+    { day: 'Day 4', name: '島武意海岸展望台', desc: '俯瞰積丹藍絕色全景', lat: 43.3464, lng: 140.6206, type: 'coast' },
+    { day: 'Day 4', name: '小樽運河', desc: '古典石造倉庫街風情，住宿運河前精品酒店', lat: 43.1992, lng: 141.0063, type: 'city' },
+    { day: 'Day 5', name: '札幌 蟹本家', desc: '豪華螃蟹料理：毛蟹、松葉蟹', lat: 43.0660, lng: 141.3505, type: 'food' },
+    { day: 'Day 5', name: '大丸百貨 & 狸小路', desc: '北海道特產手信掃貨', lat: 43.0608, lng: 141.3540, type: 'city' },
+    { day: 'Day 5', name: 'Toriton 伏古店', desc: '🔑 重點晚餐 · 自駕前往（住宅區分店，設停車場）', lat: 43.0884, lng: 141.4135, type: 'food' }
+  ];
+
+  function initLeafletMap() {
+    var dests = window.HOKKAIDO_DESTINATIONS;
+    var mapEl = document.getElementById('google-map');
+    if (!mapEl || !window.L) return;
+
+    var fallback = document.getElementById('map-fallback');
+    if (fallback) fallback.style.display = 'none';
+
+    var typeColor = {
+      flight:    '#0e7490',
+      city:      '#0d2847',
+      nature:    '#15803d',
+      hotspring: '#dc2626',
+      food:      '#d97706',
+      coast:     '#0369a1'
+    };
+
+    var map = L.map(mapEl, { scrollWheelZoom: false });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    var latlngs = [];
+    dests.forEach(function (d, idx) {
+      var color = typeColor[d.type] || '#0d2847';
+      var icon = L.divIcon({
+        className: 'trip-marker',
+        html:
+          '<div style="width:28px;height:28px;border-radius:50%;background:' + color +
+          ';border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.35);' +
+          'display:flex;align-items:center;justify-content:center;color:#fff;' +
+          'font-size:12px;font-weight:700;line-height:1">' + (idx + 1) + '</div>',
+        iconSize: [28, 28],
+        iconAnchor: [14, 14],
+        popupAnchor: [0, -14]
+      });
+      var marker = L.marker([d.lat, d.lng], { icon: icon, title: d.name }).addTo(map);
+      var popupHtml =
+        '<div style="max-width:240px;padding:2px">' +
+          '<span class="gm-iw-day">' + d.day + '</span>' +
+          '<div class="gm-iw-title">' + d.name + '</div>' +
+          '<div class="gm-iw-desc">' + d.desc + '</div>' +
+        '</div>';
+      marker.bindPopup(popupHtml);
+      latlngs.push([d.lat, d.lng]);
+    });
+
+    L.polyline(latlngs, {
+      color: '#0e7490',
+      weight: 3,
+      opacity: 0.85,
+      dashArray: '6 8'
+    }).addTo(map);
+
+    map.fitBounds(latlngs, { padding: [40, 40] });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLeafletMap);
+  } else {
+    initLeafletMap();
+  }
+
+  setTimeout(function () {
+    if (!window.L) {
+      var fb = document.getElementById('map-fallback');
+      if (fb) fb.style.display = 'block';
+    }
+  }, 6000);
 </script>
+
+<!-- Leaflet (OpenStreetMap) -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
 </body>
 </html>
